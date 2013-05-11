@@ -17,9 +17,9 @@ var setupSocket = function () {
 	// ON DELTA
 	socket.on("image", function(data) {
 		console.log(data);
-		if(data !== ""){
+		/*if(data !== ""){
 			$('div').html(data);
-		}
+		}*/
 	});
 };
 
