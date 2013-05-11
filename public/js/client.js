@@ -8,7 +8,7 @@ var setupSocket = function () {
 
 	//var socket = io.connect('http://localhost:1336');
 	var socket = io.connect('http://localhost:3001');
-	var img = $('img');
+	var img = $('#instaimage');
 	// ON CONNECT
 	socket.on("connected", function(data) {
 		console.log("Socket connected.");
@@ -17,6 +17,14 @@ var setupSocket = function () {
 	// ON DELTA
 	socket.on("image", function(data) {
 		console.log(data);
+		img.attr("src",data.imageUrl);
+		/*if(data !== ""){
+			$('div').html(data);
+		}*/
+	});
+
+	socket.on("noNewImage", function(data) {
+		console.log("no new image");
 		/*if(data !== ""){
 			$('div').html(data);
 		}*/
