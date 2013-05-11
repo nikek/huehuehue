@@ -57,6 +57,12 @@ app.get('/changecolor/:color', function(req, res){
 	res.send(req.params.color);
 });
 
+app.get('/change3colors/:startindex', function(req, res){
+	setThreeColors(req.params.startindex, res);
+
+});
+
+
 app.get('/instagram/:tag', function(req, res){
 	getLatestInstagramPhotoByTag(req.params.tag, res);
 });
@@ -69,6 +75,17 @@ app.get('/instagram/:tag', function(req, res){
 /* OUR FUNCS */
 
 
+var setThreeColors = function(startindex, res){
+	var colors = ['ff0000', '00ff00','0000ff'];
+	var lampstate = {};
+
+	for (var i=0; i < 3; i++) {
+		color = colors[(i+startindex)%3];
+		lampstate += hue.setColor(i+1, color);
+		lampstate += hue.setBrightness(i+1, Math.floor(Math.random()*250));
+	}
+	res.send(lampstate);
+};
 
 var getLatestInstagramPhotoByTag = function(tag, res) {
 	var instagramUrl = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?client_id=" + client_id + "&access_token=" + access_token + "&count=1";
@@ -83,8 +100,6 @@ var getLatestInstagramPhotoByTag = function(tag, res) {
 		}
 	});
 };
-
-
 
 
 /* Start server */
