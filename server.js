@@ -1,7 +1,11 @@
+var $ = require('jquery').create();
 var express = require('express');
+var hue = require('./hue');
 var app = express();
 
 
+
+/* Routes */
 app.get('/', function(req, res){
   res.send('Hello World');
 });
@@ -9,13 +13,30 @@ app.get('/', function(req, res){
 
 app.get('/yo', function(req, res){
 	var responseText = hej();
-  res.send(responseText);
+	res.send(responseText);
 });
 
 
+
+
+
+
+
+/* OUR FUNCS */
+
 var hej = function(){
-	return "yo man";
+	console.log(hue);
+
+	var json = { id: 2, name: "Danny boy" };
+	return json;
 };
 
+
+
+
+
+
+
+/* Start server */
 app.listen(3000);
 console.log('Listening on port 3000');
