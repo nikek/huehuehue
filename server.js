@@ -29,8 +29,9 @@ io.sockets.on('connection', function(socket) {
 
 var i = 0;
 var change = function() {
+	var repeatThis = arguments.callee;
 	io.sockets.emit('image', i++);
-	setTimeout(function(){ change(); }, 1000);
+	setTimeout(function(){ repeatThis(); }, 1000);
 };
 change();
 
@@ -42,10 +43,10 @@ change();
 
 
 /* Routes */
+
 app.get('/', function(req, res){
 	res.render('index.html');
 });
-
 
 app.get('/flashthemall', function(req, res){
 	hue.flashAll();
@@ -62,10 +63,11 @@ app.get('/change3colors/:startindex', function(req, res){
 
 });
 
-
 app.get('/instagram/:tag', function(req, res){
 	getLatestInstagramPhotoByTag(req.params.tag, res);
 });
+
+
 
 
 

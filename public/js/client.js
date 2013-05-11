@@ -8,7 +8,8 @@ var setupSocket = function () {
 
 	//var socket = io.connect('http://localhost:1336');
 	var socket = io.connect('http://localhost:3001');
-	var img = $('img');
+	var img = $('#theImage');
+
 	// ON CONNECT
 	socket.on("connected", function(data) {
 		console.log("Socket connected.");
@@ -17,8 +18,9 @@ var setupSocket = function () {
 	// ON DELTA
 	socket.on("image", function(data) {
 		console.log(data);
-		if(data !== ""){
-			$('div').html(data);
+		if(data.newImage === true){
+			$('div').html(data.num);
+			console.log(data.newImage);
 		}
 	});
 };
@@ -50,5 +52,5 @@ console.log("Trying to set up scoreboard socket..");
 if(typeof io !== 'undefined'){
 	setupSocket();
 } else {
-	$('body').html('socket error.. :\'(')
+	$('body').html('socket error.. :\'(');
 }
