@@ -37,13 +37,15 @@ io.sockets.on('connection', function(socket) {
 
 
 
-
 /* Routes */
+
 app.get('/', function(req, res){
 	res.render('index.html');
 });
 
+
 /*
+
 app.get('/flashthemall', function(req, res){
 	hue.flashAll();
 	res.send('Flashade alla.');
@@ -59,11 +61,12 @@ app.get('/change3colors/:startindex', function(req, res){
 
 });
 
-
 app.get('/instagram/:tag', function(req, res){
 	getLatestInstagramPhotoByTag(req.params.tag, res);
 });
 */
+
+
 
 
 
