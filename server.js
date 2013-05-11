@@ -75,18 +75,36 @@ app.get('/instagram/:tag', function(req, res){
 /* OUR FUNCS */
 
 
-var setThreeColors = function(startindex, res){
-	var colors = ['ff0000', '00ff00','0000ff'];
+var setThreeColors = function(colors, res){
+	//var colors = ['ff0000', '00ff00','0000ff'];
 	var lampstate = [];
 
 	for (var i=0; i < 3; i++) {
-		color = colors[(i+startindex)%3];
+		color = colors[i];
 		lampstate.push(hue.setColor(i+1, color));
 		lampstate.push(hue.setBrightness(i+1, Math.floor(Math.random()*250)));
 		console.log(lampstate);
 	}
+	
 	res.send(lampstate);
 };
+
+var getColorsFromInstagram = function(instagramPhotoUrl, res){
+	//http://marcuslinder.se/image2colors/?image=http://eofdreams.com/data_images/dreams/monkey/monkey-01.jpg
+	var urlInstaToColor = 'http://marcuslinder.se/image2colors/?image=' + instagramPhotoUrl;
+	console.log(urlInstaToColor);
+	$.ajax({
+		type: "GET",
+		cache: false,
+		url: urlInstaToColor,
+		success: function(data)  {
+			console.log(data);
+			setThreeColors(data, res)
+			//var instaColors = getColorsFromInstagram(data.data[0].images.standard_resolution.url);
+		}
+	});
+	
+}
 
 var getLatestInstagramPhotoByTag = function(tag, res) {
 	var instagramUrl = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?client_id=" + client_id + "&access_token=" + access_token + "&count=1";
@@ -96,8 +114,10 @@ var getLatestInstagramPhotoByTag = function(tag, res) {
 		cache: false,
 		url: instagramUrl,
 		success: function(data)  {
-			//console.log(data);
-			res.send( '<img src="' + data.data[0].images.standard_resolution.url + '">');
+			//console.log(data)
+			//res.send( '<img src="' + data.data[0].images.standard_resolution.url + '">');
+			console.log('get colors from insta NU');
+			getColorsFromInstagram(data.data[0].images.standard_resolution.url, res);
 		}
 	});
 };
