@@ -1,5 +1,6 @@
 var $ = require('jquery').create();
 var express = require('express');
+var io = require('socket.io').listen(3001);
 var colors = require('./colors')();
 var hue = require('./hue')($, colors);
 var app = express();
@@ -11,21 +12,40 @@ hue.setIpAndApiKey('192.168.0.140', 'newdeveloper');
 var client_id = "b324895e4b6643f18d5b642f5b137530", access_token = "59e71aa6bb0947039f482f84d35a055f";
 
 
+
+
+
+
+
+/* SOCKET */
+// Removing all the debug statements
+io.set('log level', 1);
+
+// When a client connects
+io.sockets.on('connection', function(socket) {
+	console.log("client connected! length: " + io.sockets.clients().length);
+	socket.emit('connected', { accept: true }); // Tell the new client he is connected.
+});
+
+var i = 0;
+var change = function() {
+	io.sockets.emit('image', i++);
+	setTimeout(function(){ change(); }, 1000);
+};
+change();
+
+
+
+
+
+
+
+
 /* Routes */
 app.get('/', function(req, res){
 	res.render('index.html');
 });
 
-
-app.get('/yo', function(req, res){
-	var responseText = hej();
-	res.send(responseText);
-});
-
-
-app.get('/lindercolor', function(req, res){
-	res.send('yo');
-});
 
 app.get('/flashthemall', function(req, res){
 	hue.flashAll();
@@ -48,12 +68,6 @@ app.get('/instagram/:tag', function(req, res){
 
 /* OUR FUNCS */
 
-var hej = function(){
-	console.log(hue);
-
-	var json = { id: 2, name: "Danny boy" };
-	return json;
-};
 
 
 var getLatestInstagramPhotoByTag = function(tag, res) {
@@ -69,6 +83,8 @@ var getLatestInstagramPhotoByTag = function(tag, res) {
 		}
 	});
 };
+
+
 
 
 /* Start server */
