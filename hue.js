@@ -8,7 +8,7 @@
  
 module.exports = function(){
 
-    var hue = function ($, colors) { 
+    return function ($, colors) { 
         
         'use strict';
         
@@ -425,7 +425,7 @@ module.exports = function(){
         };
     };
 
-    return hue;
+    //return hue;
     /*
     if(typeof(define) !== 'undefined' && typeof(define.amd) !== 'undefined') {
         define(["../jquery", "./colors"], hue);

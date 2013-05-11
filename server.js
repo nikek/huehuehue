@@ -1,8 +1,10 @@
 var $ = require('jquery').create();
 var express = require('express');
-var hue = require('./hue');
+var colors = require('./colors')();
+var hue = require('./hue')($, colors);
 var app = express();
-
+/* setup */
+hue.setIpAndApiKey('192.168.0.140', 'newdeveloper');
 
 
 /* Routes */
@@ -21,6 +23,15 @@ app.get('/lindercolor', function(req, res){
 	res.send('yo');
 });
 
+app.get('/flashthemall', function(req, res){
+	hue.flashAll();
+	res.send('Flashade alla.');
+});
+
+app.get('/changecolor/:color', function(req, res){
+	hue.setAllColors(req.params.color);
+	res.send(req.params.color);
+});
 
 
 
