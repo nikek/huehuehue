@@ -77,12 +77,13 @@ app.get('/instagram/:tag', function(req, res){
 
 var setThreeColors = function(startindex, res){
 	var colors = ['ff0000', '00ff00','0000ff'];
-	var lampstate = {};
+	var lampstate = [];
 
 	for (var i=0; i < 3; i++) {
 		color = colors[(i+startindex)%3];
-		lampstate += hue.setColor(i+1, color);
-		lampstate += hue.setBrightness(i+1, Math.floor(Math.random()*250));
+		lampstate.push(hue.setColor(i+1, color));
+		lampstate.push(hue.setBrightness(i+1, Math.floor(Math.random()*250)));
+		console.log(lampstate);
 	}
 	res.send(lampstate);
 };
