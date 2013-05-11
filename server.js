@@ -12,10 +12,16 @@ app.get('/yo', function(req, res){
   res.send(responseText);
 });
 
+app.get('/lindercolor', function(req, res){
+	res.send('yo');
+});
+
 
 var hej = function(){
 	return "yo man";
 };
+
+
 
 app.listen(3000);
 console.log('Listening on port 3000');
