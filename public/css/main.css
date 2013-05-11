@@ -63,27 +63,61 @@ textarea {
 
 
 html, body {
-    height: 100%;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
+    height: 100%;
     margin: 0;
     padding: 0;
-}
-
-.content {
-    
 }
 
 p {
     margin: 0;
 }
+
 .image {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
     border: 10px solid white;
+    width: 100%;
+    max-width: 512px;
 }
 
+.content {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /*background: #c0c0c0;*/
+}
+ 
+.content:before {
+  content: '';
+  display: inline-block;
+  height: 100%; 
+  vertical-align: middle;
+  margin-right: -0.25em; /* Adjusts for spacing */  
+ }
+ 
+.centered {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    padding: 30px 20px;
+    /*border: #a0a0a0 solid 1px;
+    background: #f5f5f5;*/
+ }
 
-
+form {
+    background: y;
+}
 
 
 
