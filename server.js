@@ -6,6 +6,8 @@ var app = express();
 /* setup */
 hue.setIpAndApiKey('192.168.0.140', 'newdeveloper');
 
+var client_id = "b324895e4b6643f18d5b642f5b137530", access_token = "59e71aa6bb0947039f482f84d35a055f";
+
 
 /* Routes */
 app.get('/', function(req, res){
@@ -33,6 +35,10 @@ app.get('/changecolor/:color', function(req, res){
 	res.send(req.params.color);
 });
 
+app.get('/instagram/:tag', function(req, res){
+	getLatestInstagramPhotoByTag(req.params.tag, res);
+});
+
 
 
 
@@ -47,6 +53,20 @@ var hej = function(){
 	return json;
 };
 
+
+var getLatestInstagramPhotoByTag = function(tag, res) {
+	var instagramUrl = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?client_id=" + client_id + "&access_token=" + access_token + "&count=1";
+	$.ajax({
+		type: "GET",
+		dataType: "jsonp",
+		cache: false,
+		url: instagramUrl,
+		success: function(data)  {
+			//console.log(data);
+			res.send( '<img src="' + data.data[0].images.standard_resolution.url + '">');
+		}
+	});
+};
 
 
 /* Start server */
