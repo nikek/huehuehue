@@ -128,7 +128,7 @@ var getLatestInstagramPhotoByTag = function(tag, res) {
 	}).always(function() {
 		setTimeout(function(){
 			change();
-		},3000);
+		},10000);
 	});
 };
 

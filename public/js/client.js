@@ -1,69 +1,3 @@
-
-// -------------------------------------------------------
-// Connection functions
-// -------------------------------------------------------
-
-
-var setupSocket = function () {
-
-	//var socket = io.connect('http://localhost:1336');
-	var socket = io.connect('http://localhost:3001');
-	var img = $('#instaimage');
-
-	// ON CONNECT
-	socket.on("connected", function(data) {
-		console.log("Socket connected.");
-	});
-
-	// ON DELTA
-	socket.on("image", function(data) {
-		console.log(data);
-		img.attr("src",data.imageUrl);
-		/*if(data !== ""){
-			$('div').html(data);
-		}*/
-	});
-
-	socket.on("noNewImage", function(data) {
-		console.log("no new image");
-		/*if(data !== ""){
-			$('div').html(data);
-		}*/
-	});
-};
-
-/*
-var setupPolling = function () {
-	return setInterval(function(){
-		teamList.fetch({ cache: false, type: "jsonp",
-			success: function(){
-				//console.log("Fetched!");
-			},
-			error: function(error) {
-				console.log("Error on fetching. Try refreshing the page in a while.");
-				console.log(error);
-				clearInterval(pollingInterval);
-			}
-		});
-	}, 120000);
-};
-*/
-
-
-// ---------------------------------------------------------
-// Setting up a socket and listening for scoreboard changes
-// ---------------------------------------------------------
-
-console.log("Trying to set up scoreboard socket..");
-
-if(typeof io !== 'undefined'){
-	setupSocket();
-} else {
-	$('body').html('socket error.. :\'(');
-}
-
-
-
 // jQuery fn gradientGenerator
 
 ;(function($) {
@@ -73,7 +7,7 @@ if(typeof io !== 'undefined'){
         init: function (settings) {
 
             settings = $.extend( {
-              'colors'         : ['red', 'blue', 'green'],
+              'colors'         : ['ff0000', '00ff00', '0000ff'],
               'direction'      : 'left'
             }, settings);
 
@@ -123,7 +57,7 @@ if(typeof io !== 'undefined'){
            gradientString += to +' '+ direction;
 
             for(i=0; i < nbColors; i++)
-               gradientString += ', '+ colors[i].color + ' ' + colors[i].percent + '%';
+               gradientString += ', #'+ colors[i].color + ' ' + colors[i].percent + '%';
 
             gradientString += ')';
             return gradientString;
@@ -136,3 +70,71 @@ if(typeof io !== 'undefined'){
         return methods.init.apply( this, arguments );
     };
 })(jQuery);
+// -------------------------------------------------------
+// Connection functions
+// -------------------------------------------------------
+
+
+var setupSocket = function () {
+
+	//var socket = io.connect('http://localhost:1336');
+	var socket = io.connect('http://localhost:3001');
+	var img = $('#instaimage'),
+	body = $('body');
+
+	// ON CONNECT
+	socket.on("connected", function(data) {
+		console.log("Socket connected.");
+	});
+
+	// ON DELTA
+	socket.on("image", function(data) {
+		console.log(data);
+		img.attr("src",data.imageUrl);
+		body.gradientGenerator(data);
+		/*if(data !== ""){
+			$('div').html(data);
+		}*/
+	});
+
+	socket.on("noNewImage", function(data) {
+		console.log("no new image");
+		/*if(data !== ""){
+			$('div').html(data);
+		}*/
+	});
+};
+
+/*
+var setupPolling = function () {
+	return setInterval(function(){
+		teamList.fetch({ cache: false, type: "jsonp",
+			success: function(){
+				//console.log("Fetched!");
+			},
+			error: function(error) {
+				console.log("Error on fetching. Try refreshing the page in a while.");
+				console.log(error);
+				clearInterval(pollingInterval);
+			}
+		});
+	}, 120000);
+};
+*/
+
+
+// ---------------------------------------------------------
+// Setting up a socket and listening for scoreboard changes
+// ---------------------------------------------------------
+
+console.log("Trying to set up scoreboard socket..");
+
+if(typeof io !== 'undefined'){
+	setupSocket();
+} else {
+	$('body').html('socket error.. :\'(');
+}
+
+
+
+
