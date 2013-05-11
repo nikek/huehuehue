@@ -17,6 +17,11 @@ app.get('/yo', function(req, res){
 });
 
 
+app.get('/lindercolor', function(req, res){
+	res.send('yo');
+});
+
+
 
 
 
@@ -30,10 +35,6 @@ var hej = function(){
 	var json = { id: 2, name: "Danny boy" };
 	return json;
 };
-
-
-
-
 
 
 
