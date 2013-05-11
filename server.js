@@ -3,13 +3,15 @@ var express = require('express');
 var colors = require('./colors')();
 var hue = require('./hue')($, colors);
 var app = express();
-/* setup */
+app.use(express['static'](__dirname + '/public'));
+
+/* Setup */
 hue.setIpAndApiKey('192.168.0.140', 'newdeveloper');
 
 
 /* Routes */
 app.get('/', function(req, res){
-  res.send('Hello World');
+	res.render('index.html');
 });
 
 
